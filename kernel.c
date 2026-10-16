@@ -2,8 +2,11 @@
 #include "types.h"
 #include "serial.h"
 #include "string.h"
+#include "process.h"
 
 #define MAX_INPUT 128
+
+void dummy(void) {}
 
 void kmain(void) {
     char input[MAX_INPUT];
@@ -11,6 +14,10 @@ void kmain(void) {
     
     /* Initialize hardware */
     serial_init();
+
+    int a = create_proc("A", dummy);
+    if (a == 0) serial_puts("created A\n");
+    else serial_puts("create failed\n");
     
     /* Print welcome message */
     serial_puts("\n");
